@@ -1,0 +1,13 @@
+class Solution:
+    def twoSum(self, nums, target):
+        
+        visited = dict()
+        
+        for i in range(len(nums)):
+            num = nums[i]
+            tosearch = target - num
+            if tosearch in visited:
+                return [visited[tosearch],i]
+            else:
+                visited[num] = i
+        
