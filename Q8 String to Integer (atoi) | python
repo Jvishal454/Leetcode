@@ -1,0 +1,30 @@
+class Solution:
+    def myAtoi(self, s: str) -> int:
+  
+        i =0
+        res = 0
+        neg = 1     
+        
+        MAX_INT = 2 ** 31 -1
+        MIN_INT = -2 ** 31 
+        
+        #Whitespace
+        while i < len(s) and s[i] == ' ':
+            i += 1
+            
+        #+/- symbol
+        if i < len(s) and s[i] == '-':
+            i += 1
+            neg = -1
+        elif i < len(s) and s[i] == '+':
+            i += 1
+            
+        # check numbers MIN_MAX and outbound
+        check = set('0123456789')
+        while i < len(s) and s[i] in check:
+            if res > MAX_INT / 10 or (res == int(MAX_INT / 10) and int(s[i]) > 7):
+                return MAX_INT if neg == 1 else MIN_INT
+            res = res * 10 + int(s[i])
+            i += 1
+            
+        return res * neg
