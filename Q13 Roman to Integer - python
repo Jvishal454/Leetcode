@@ -1,0 +1,29 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        lookup = {
+            "M":1000,
+            
+            "D":500,
+            
+            "C":100,
+            
+            "L":50,
+            
+            "X":10,
+            
+            "V":5,
+            
+            "I":1, 
+        }
+        n = len(s)
+        i = n - 1
+        output = 0
+        
+        while i >= 0:
+            if i < n-1 and lookup[s[i]] < lookup[s[i+1]]:
+                output -= lookup[s[i]]
+            else:
+                output += lookup[s[i]]
+                
+            i -= 1
+        return output 
