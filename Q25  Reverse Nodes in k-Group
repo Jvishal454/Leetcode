@@ -1,1 +1,67 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+#https://www.youtube.com/watch?v=vqaO4oIJqnI&ab_channel=AyushiSharma
+class Solution:
+    
+    def lengthOfLinkedList(self, head):
+        length = 0
+        temp = head
+        while temp:
+            temp = temp.next
+            length += 1
+        
+        return length
+            
+    
+    def reverseKGroupH(self, head, k, length):
+        if length < k:
+            return head
+        
+        count, nex, prev, curr = 0, None, None, head
+        while count < k and curr != None:
+            nex = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nex
+            count += 1
+        
+        if nex != None:
+            head.next = self.reverseKGroupH(nex, k, length - k)
+        
+        return prev
+    
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        
+        length = self.lengthOfLinkedList(head)
+        return self.reverseKGroupH(head, k, length)
 
+
+DSc SOln.
+
+Use a dummy head, and
+
+l, r : define reversing range
+
+pre, cur : used in reversing, standard reverse linked linked list method
+
+jump : used to connect last node in previous k-group to first node in following k-group
+
+def reverseKGroup(self, head, k):
+    dummy = jump = ListNode(0)
+    dummy.next = l = r = head
+    
+    while True:
+        count = 0
+        while r and count < k:   # use r to locate the range
+            r = r.next
+            count += 1
+        if count == k:  # if size k satisfied, reverse the inner linked list
+            pre, cur = r, l
+            for _ in range(k):
+                cur.next, cur, pre = pre, cur.next, cur  # standard reversing
+            jump.next, jump, l = pre, l, r  # connect two k-groups
+        else:
+            return dummy.next
