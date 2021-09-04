@@ -1,0 +1,8 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        
+        if not needle:
+            return 0
+        #find return the index if finds else returns -1
+        x = haystack.find(needle)
+        return x
