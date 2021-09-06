@@ -3,6 +3,32 @@ class Solution:
         ''' https://www.prodevelopertutorial.com/divide-two-integers-without-using-multiplication-division-and-mod-operator/ '''
         
         result = 0
+        dvdnd = abs(dividend)
+        dvsor = abs(divisor)
+     
+        while dvdnd >= dvsor:
+            temp = dvsor
+            mul = 1
+            while dvdnd >= temp:    
+                dvdnd -= temp
+                result += mul
+                mul += mul
+                temp += temp
+            
+        if (dividend < 0 and divisor >= 0) or (divisor < 0 and dividend >= 0):
+            result = -result
+            
+        return min(2147483647,max(-2147483648,result))
+
+
+
+
+#2
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        ''' https://www.prodevelopertutorial.com/divide-two-integers-without-using-multiplication-division-and-mod-operator/ '''
+        
+        result = 0
         maxi = 2**31-1
         mini = -2**31
         while dividend > divisor:
