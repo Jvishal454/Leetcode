@@ -1,0 +1,74 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        A, B = nums1, nums2
+        total = len(nums1) + len(nums2)
+        half = total // 2
+        
+        if len(B) < len(A):
+            A, B = B, A
+        
+        l, r = 0, len(A) - 1
+        while True:
+            i = (l + r) // 2 #A
+            j = half - i - 2 #B
+        
+            Aleft = A[i] if i >= 0 else float("-infinity")
+            Aright = A[i + 1] if (i + 1) < len(A) else float("infinity")
+            Bleft = B[j] if j >= 0 else float("-infinity")
+            Bright = B[j + 1] if (j + 1) < len(B) else float("infinity")
+        
+            # if partition is correct
+            if Aleft <= Bright and Bleft <= Aright:
+                #odd
+                if total % 2:
+                    return min(Aright, Bright)
+                #even
+                return (max(Aleft, Bleft) + min(Aright, Bright)) / 2
+            elif Aleft > Bright:
+                r = i - 1
+            else:
+                l = i + 1
+
+
+JavaScript
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    var A = nums1, B = nums2
+    total = nums1.length + nums2.length
+    half = Math.floor(total / 2)
+
+    if (B.length < A.length) {
+        let temp = A
+        A = B, B = temp
+    }
+
+    let l = 0, r = A.length - 1
+    while(true) {
+        i = Math.floor((l + r) / 2)
+        j = Math.floor(half - i -2)
+
+        Aleft = (i >= 0) ? A[i] : Number.NEGATIVE_INFINITY
+        Aright = (i + 1 < A.length) ? A[i + 1] : Number.POSITIVE_INFINITY
+        Bleft = (j >= 0) ? B[j] : Number.NEGATIVE_INFINITY
+        Bright = (j + 1 < B.length) ? B[j + 1] : Number.POSITIVE_INFINITY
+
+        if (Aleft <= Bright && Bleft <= Aright) {
+            if (total % 2 == 1){
+                return Math.min(Aright, Bright)
+            }
+            return (Math.max(Aleft, Bleft) + Math.min(Aright, Bright)) / 2;
+        }
+        else if (Aleft > Bright) {
+            r = i - 1
+        }
+        else {
+            l = i + 1
+        }
+    }    
+};
+            
