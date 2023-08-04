@@ -1,0 +1,31 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        
+        rev = 0
+        temp = x
+        
+        while x>0:
+            digit = x % 10
+            rev = rev * 10 + digit
+            x = int(x / 10)
+        return 1 if temp == rev else 0
+
+--------------JavaScript----------------
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+    const temp = x;
+    let res = 0;
+
+    while (x > 0) {
+        let rem = parseInt(x % 10);
+        x = Math.trunc(x / 10);
+        res = (res * 10) + rem
+    }
+    return temp == res
+    
+    
+};
