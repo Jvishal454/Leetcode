@@ -1,0 +1,44 @@
+class Solution:
+    def reverse(self, x: int) -> int:
+        
+        MIN = -2147483648 
+        MAX = 2147483647
+        rev = 0
+        
+        while x:
+            digit = int(math.fmod(x, 10))
+            x = int(x / 10)
+            
+            if (rev > MAX // 10 or (rev == MAX // 10 and digit >= MAX % 10)):
+                return 0
+            if (rev < MIN // 10 or (rev == MIN // 10 and digit <= MIN % 10)):
+                return 0
+            rev = (rev * 10) + digit
+        return rev
+
+-------------------JavaScript--------------------------
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    const MAX = 2**31 - 1;
+    const MIN = Math.pow(-2, 31);
+
+    let res = 0
+
+    while(x){
+        let rem = x % 10;
+        x = parseInt(x / 10);
+        //check if i is within 32 bit signed int
+        if (res > MAX / 10 || (res == MAX / 10 && rem >= MAX % 10)) {
+            return 0
+        }
+        if (res < MIN / 10 || (res == MIN / 10 && rem <= MIN % 10)) {
+            return 0
+        }
+        res = (res * 10) + rem;
+    }
+    return res 
+};
