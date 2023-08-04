@@ -1,0 +1,92 @@
+class Solution:
+    def myAtoi(self, s: str) -> int:
+  
+        i =0
+        res = 0
+        neg = 1     
+        
+        MAX_INT = 2 ** 31 -1
+        MIN_INT = -2 ** 31 
+        
+        #Whitespace
+        while i < len(s) and s[i] == ' ':
+            i += 1
+            
+        #+/- symbol
+        if i < len(s) and s[i] == '-':
+            i += 1
+            neg = -1
+        elif i < len(s) and s[i] == '+':
+            i += 1
+            
+        # check numbers MIN_MAX and outbound
+        check = set('0123456789')
+        while i < len(s) and s[i] in check:
+            if res > MAX_INT / 10 or (res == int(MAX_INT / 10) and int(s[i]) > 7):
+                return MAX_INT if neg == 1 else MIN_INT
+            res = res * 10 + int(s[i])
+            i += 1
+            
+        return res * neg
+
+************* 2nd python ******************
+
+class Solution:
+    def myAtoi(self, s: str) -> int:
+
+        i = 0
+        MAX = 2 ** 31 -1
+        MIN = -2 ** 31
+        sign = 1 #initially set to pos 1
+        res = 0
+
+        while i < len(s) and s[i] == " ":
+            i += 1
+        
+        if i < len(s) and s[i] == "-":
+            sign = -1
+            i += 1
+        elif i < len(s) and s[i] == "+":
+            i += 1
+        check = set('0123456789')
+        while i < len(s) and s[i] >= '0' and s[i] <= '9':
+            if res > MAX / 10 or (res == int(MAX / 10) and int(s[i]) > MAX % 10):
+                return MAX if sign == 1 else MIN
+            res = (res * 10) + int(s[i])
+            i += 1
+        return res * sign
+
+
+------------------JavaScript-------------------
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var myAtoi = function(s) {
+    let i = 0;
+    const MAX = 2**31 - 1
+    const MIN = Math.pow(-2, 31)
+    var sign = 1
+    var res = 0
+
+    while( i < s.length && s[i] == ' '){
+        i += 1;
+    }
+    if (i < s.length && s[i] == '-'){
+        sign = -1
+        i += 1
+    }
+    else if(i < s.length && s[i] == '+'){
+        i += 1
+    }
+
+    while(i < s.length && s[i] >= '0' && s[i] <= '9'){
+        if(res > Math.trunc(MAX / 10) || (res == Math.trunc(MAX / 10) && parseInt(s[i]) > 7)){
+            return sign == 1 ? MAX : MIN
+        }
+        res = (res * 10) + parseInt(s[i]);
+        i += 1
+    }
+    return res * sign
+};
