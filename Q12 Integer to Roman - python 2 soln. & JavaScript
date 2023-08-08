@@ -74,3 +74,45 @@ class Solution:
                 else:
                     break
         return "".join(output)
+
+
+------------------JavaScript--------------------
+
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function(num) {
+
+    const map = {
+            "M":1000,
+            "CM":900,
+            "D":500,
+            "CD":400,
+            "C":100,
+            "XC":90,
+            "L":50,
+            "XL":40,
+            "X":10,
+            "IX":9,
+            "V":5,
+            "IV":4,
+            "I":1, 
+        }
+
+        res = []
+
+        for(let [key, value] of Object.entries(map)){
+            while(num > 0) {
+                if(num >= value) {
+                    res.push(key)
+                    num = num - value
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        return res.join("")
+    
+};
