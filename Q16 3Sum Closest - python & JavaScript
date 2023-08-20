@@ -1,0 +1,77 @@
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        res = nums[0] + nums[1] + nums[len(nums) - 1]
+        nums.sort()
+        
+        for i in range(len(nums) - 2):
+            
+            l = i + 1
+            r = len(nums) - 1
+            
+            while l < r:
+                current = nums[i] + nums[l] + nums[r]
+                if current == target:
+                    return target
+                elif current > target:
+                    r -= 1
+                else:
+                    l += 1
+                    
+                if math.fabs(current - target) < math.fabs(res - target):
+                    res = current
+        return res
+                    
+--------------- Python same 2 ---------------------------
+
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        res = nums[0] + nums[1] + nums[len(nums) - 1]
+
+        for i in range(len(nums) - 2):
+            l , r = i+1, len(nums) - 1
+            while l < r:
+                currentNum = nums[i] + nums[l] + nums[r]
+                # if currentNum == target:
+                #     return target
+                if math.fabs(currentNum - target) < math.fabs(res - target):
+                    res = currentNum
+                if currentNum < target:
+                    l += 1
+                else:
+                    r -= 1
+        return res
+
+---------------------------------- JavaScript ------------------------------------------
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+
+    nums.sort((a, b) => a - b);
+    let res = nums[0] + nums[1] + nums[nums.length - 1]
+
+    for(let i = 0; i < nums.length - 2; i++){
+        let l = i+1, r = nums.length -1
+        while(l < r){
+            currentNum = nums[i] + nums[l] + nums[r]
+            if (currentNum == target) {
+                return target
+            }
+            if( Math.abs(currentNum - target) < Math.abs(res - target)) {
+                res = currentNum
+            }
+            if (currentNum < target){
+                l += 1
+            }
+            else{
+                r -= 1
+            }
+        }
+    }
+    return res
+    
+};
